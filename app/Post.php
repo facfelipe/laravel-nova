@@ -4,11 +4,17 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Laravel\Scout\Searchable;
+use Laravel\Nova\Actions\Actionable;
 
 class Post extends Model
 {
-    use Searchable;
-    
+    //use Searchable;
+    use Actionable;
+
+    protected $fillable = [
+        'is_published'
+    ];
+
     protected $casts = [
     	'publish_at' => 'datetime',
     	'publish_until' => 'datetime',

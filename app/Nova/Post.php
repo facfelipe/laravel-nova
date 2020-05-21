@@ -15,6 +15,9 @@ use Laravel\Nova\Http\Requests\NovaRequest;
 use App\Nova\Filters\PostPublished;
 use App\Nova\Filters\PostCategories;
 use App\Nova\Lenses\MostTags;
+use App\Nova\Actions\PublishPost;
+
+
 
 class Post extends Resource
 {
@@ -151,6 +154,12 @@ class Post extends Resource
      */
     public function actions(Request $request)
     {
-        return [];
+        return [
+            (new PublishPost)->canSee(function($request) {
+                return 1 === $request->user()->id;
+            })->canRun(function($request, $resource){
+                return 1 === $resource->id;
+            })
+        ];
     }
 }
