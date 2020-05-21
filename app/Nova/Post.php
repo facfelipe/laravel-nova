@@ -14,6 +14,7 @@ use Laravel\Nova\Fields\BelongsToMany;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use App\Nova\Filters\PostPublished;
 use App\Nova\Filters\PostCategories;
+use App\Nova\Lenses\MostTags;
 
 class Post extends Resource
 {
@@ -137,7 +138,9 @@ class Post extends Resource
      */
     public function lenses(Request $request)
     {
-        return [];
+        return [
+            new MostTags
+        ];
     }
 
     /**
