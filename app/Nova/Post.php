@@ -12,6 +12,8 @@ use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\BelongsToMany;
 use Laravel\Nova\Http\Requests\NovaRequest;
+use App\Nova\Filters\PostPublished;
+use App\Nova\Filters\PostCategories;
 
 class Post extends Resource
 {
@@ -121,7 +123,10 @@ class Post extends Resource
      */
     public function filters(Request $request)
     {
-        return [];
+        return [
+            new PostPublished,
+            new PostCategories
+        ];
     }
 
     /**
