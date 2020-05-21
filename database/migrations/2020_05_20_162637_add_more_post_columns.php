@@ -18,6 +18,12 @@ class AddMorePostColumns extends Migration
             $table->datetime('publish_until')->nullable();
             $table->boolean('is_published')->default(false);
             $table->string('category')->nullable();
+            
+            $table->unsignedBigInteger('user_id')->nullable();
+            $table->foreign('user_id')
+                ->references('id')
+                ->on('users')
+                ->onDelete('cascade');
         });
     }
 
