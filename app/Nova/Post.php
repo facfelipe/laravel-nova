@@ -39,6 +39,18 @@ class Post extends Resource
     ];
 
     /**
+     * Build an "index" query for the given resource.
+     *
+     * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
+     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public static function indexQuery(NovaRequest $request, $query)
+    {
+        return $query->where('user_id', $request->user()->id);
+    }
+
+    /**
      * Get the fields displayed by the resource.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -61,7 +73,10 @@ class Post extends Resource
                 ->rules('after_or_equal:publish_at')
                 ->hideFromIndex(),
 
-            Boolean::make('Is Published'),
+            Boolean::make('Is Published')
+                ->canSee(function($request) {
+                    return $request->user()->can('publish_at', $this);
+                }),
 
             Select::make('Category')->options([
                 'tutorials' => 'Tutorials',
