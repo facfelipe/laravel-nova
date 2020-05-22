@@ -8,6 +8,7 @@ use Laravel\Nova\Nova;
 use Laravel\Nova\NovaApplicationServiceProvider;
 use App\Nova\Metrics\PostCount;
 use App\Nova\Metrics\PostsPerDay;
+use App\Nova\Metrics\PostsPerCategory;
 
 class NovaServiceProvider extends NovaApplicationServiceProvider
 {
@@ -58,8 +59,9 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
     protected function cards()
     {
         return [
-            new PostCount,
-            new PostsPerDay,
+            (new PostsPerDay)->width('full'),
+            (new PostCount)->width('1/2'),            
+            (new PostsPerCategory)->width('1/2'),
             new Help,
         ];
     }
