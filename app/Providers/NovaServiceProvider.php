@@ -6,6 +6,8 @@ use Illuminate\Support\Facades\Gate;
 use Laravel\Nova\Cards\Help;
 use Laravel\Nova\Nova;
 use Laravel\Nova\NovaApplicationServiceProvider;
+use App\Nova\Metrics\PostCount;
+use App\Nova\Metrics\PostsPerDay;
 
 class NovaServiceProvider extends NovaApplicationServiceProvider
 {
@@ -56,6 +58,8 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
     protected function cards()
     {
         return [
+            new PostCount,
+            new PostsPerDay,
             new Help,
         ];
     }
